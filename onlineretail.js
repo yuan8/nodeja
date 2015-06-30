@@ -146,8 +146,8 @@ function use_faktur(req, res, next){
 
 var app = express();
 app.enable('etag');
-app.use(express.static("/node.js/"));
-app.use(express.static("/node.js/onlineretail/"));
+app.use(express.static("/nodejs/"));
+app.use(express.static("/nodejs/onlineretail/"));
 app.use('/produk', use_produk); 
 app.use('/salesman', use_salesman); 
 app.use('/faktur', use_faktur); 
