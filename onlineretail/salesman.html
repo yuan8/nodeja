@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Online Retail</title>
+
+		<!-- Bootstrap -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<script>
+		function btn_get(){
+			var vid = $("input[name='salesman_id']").val();
+			var opt = {
+				action: "get",
+				id: vid
+			}
+			$.get("/salesman", opt, function(data){
+				if(data.error) return alert(data.error);
+				$("input[name='nama']").val(data.nama);
+				$("input[name='lahir_tanggal']").val(data.lahir_tanggal);
+				$("input[name='alamat_jalan']").val(data.alamat_jalan);
+				$("input[name='alamat_desa']").val(data.alamat_desa);
+				$("input[name='alamat_kecamatan']").val(data.alamat_kecamatan);
+				$("input[name='alamat_kota']").val(data.alamat_kota);
+				$("input[name='alamat_provinsi']").val(data.alamat_provinsi);
+				$("input[name='alamat_kodepos']").val(data.alamat_kodepos);
+				// isi parameter action dengan update
+				$("input[name='action']").val("update");
+				// tampilkan tombol delete
+				$("#btn_delete").css("visibility", "visible");
+			});
+		}
+		
+		function btn_delete(){
+			var vid = $("input[name='salesman_id']").val();
+			console.log("Delete Salesman dengan ID: ",vid);
+			var opt = {
+				action: "delete",
+				id: vid
+			}
+			$.get("/salesman", opt, function(data){
+				$("body").html("<p>"+data+"</p>");
+			});
+		}
+	</script>
+	<style>
+		:required {
+			border-color: red;
+		}
+	</style>
+	</head>
+	<body>
+	<h1 class="text-center">Salesman</h1><br/>
+	<div class="container">
+		<form action="/salesman" class="form-horizontal" role="form">
+			<input type="text" name="action" value="insert" required style="display:none">
+			<div class="form-group">
+				<label class="control-label col-sm-2 lbl-info" for="email">Salesman ID:</label>
+				<div class="col-sm-2 input-group">
+					<input type="text" style="margin-left:15px;" class="form-control col=sm-1" name="salesman_id" placeholder="ID Salesman">
+					<span class="input-group-btn">
+						<button style="left:-15px; z-index:1000" class="btn btn-default btn-danger" type="button" onclick="btn_get()">Get</button>
+					</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="pwd">Nama Salesman:</label>
+				<div class="col-sm-10">					
+					<input type="text" class="form-control" name="nama" placeholder="Nama salesman" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="pwd">Tanggal Lahir:</label>
+				<div class="col-sm-2">					
+					<input type="text" class="form-control" name="lahir_tanggal" placeholder="Tanggal lahir">
+				</div>
+				<label class="control-label col-sm-2" for="pwd">Alamat:</label>
+				<div class="col-sm-2">					
+					<input type="text" class="form-control" name="alamat_jalan" placeholder="Alamat">
+				</div>
+				<label class="control-label col-sm-2" for="pwd">Desa:</label>
+				<div class="col-sm-2">					
+					<input type="text" class="form-control" name="alamat_desa" placeholder="Desa">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="pwd">Kecamatan:</label>
+				<div class="col-sm-2">					
+					<input type="text" class="form-control" name="alamat_kecamatan" placeholder="Kecamatan" required>
+				</div>
+				<label class="control-label col-sm-2" for="pwd">Kota:</label>
+				<div class="col-sm-2">					
+					<input type="text" class="form-control" name="alamat_kota" placeholder="Kota" required>
+				</div>
+				<label class="control-label col-sm-2" for="pwd">Provinsi:</label>
+				<div class="col-sm-2">					
+					<input type="text" class="form-control" name="alamat_provinsi" placeholder="Provinsi" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="pwd">Kode Pos:</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="alamat_kodepos" placeholder="Kode pos">
+				</div>
+			</div>
+			<br/>
+			<div class="form-group">				
+				<div class="col-sm-offset-2 col-sm-2">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+				<div id="btn_delete" class="col-sm-offset-0 col-sm-2" style="visibility:hidden">
+					<button type="button" class="btn btn-danger" onclick="btn_delete()">Delete</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="js/jquery.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+	</body>
+</html>
